@@ -1,15 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*,com.model.Person"%>
-    <%@include file="head.jsp" %>
+    pageEncoding="ISO-8859-1"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+</head>
+
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" >
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" ></script>
 </head>
 <body>
+<div class="alert alert-info">
+   <h3>Number of requests made in this session ::${sessionScope.count}</h3>
+   <h3>Number of requests made since server start ::${applicationScope.count}</h3>
+</div>
 <form action="person.do" method="post">
    <table>
        <tr>
@@ -37,26 +44,18 @@
                 <th>City</th>
             </tr>
       </thead>
-       <tbody>
-   
-   <%
-   
- 
-       List<Person> list=(List<Person>) request.getAttribute("peoplelist");
-       for(Person x:list)
-       {
-   %>
-      <tr>
-       <td> <%=x.getSno()%></td>
-       <td> <%=x.getName()%></td>
-       <td> <%=x.getCity()%></td>
+     <tbody> 
+   <c:forEach items="${peoplelist}" var="x">
+       <tr>
+                <td> ${x.sno} </td>
+                <td> ${x.name} </td>
+                <td> ${x.city}</td>
        </tr>
-       <%} %>
-       <%--
-          comment in jsp
-       --%>
+   </c:forEach>
    </tbody>
    </table>
 </form>
+</body>
+
 </body>
 </html>
